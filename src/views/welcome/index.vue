@@ -1,16 +1,17 @@
 <template>
 
 <div class="big-data-bg">
-    <div class="header">
+    <!-- <div class="header">
       <div class="kanban">数据看板</div>
       <div class="date">2020-12-22</div>
-    </div>
+    </div> -->
+    <div class="title-name">数据看板</div>
     <div class="main-content">
       <div class="button-box flex">
-        <div class="al-c">2021</div>
-        <div class="al-c">2022</div>
+        <div class="al-c cursor" :class="{'sel': activeIndex === 0}" @click="changeChart(0)">2021</div>
+        <div class="al-c cursor" :class="{'sel': activeIndex === 1}" @click="changeChart(1)">2022</div>
       </div>
-      <BarChart class="chart-bar" />
+      <BarChart ref="BarChart" :yData="yData" class="chart-bar" />
       <LineChart class="chart-bar" />
     </div>
   </div>
@@ -28,11 +29,24 @@ export default {
   data() {
     return {
       message: "The webmaster said that you can not enter this page...",
+      yData:[12,23,56,89,32,12,45],
+      activeIndex:0,
     };
   },
   computed: {},
   mounted() {},
-  methods: {},
+  methods: {
+    changeChart(tag){
+      this.activeIndex = tag;
+      if(tag === 0){
+        this.yData = [12,23,56,89,32,12,45];
+      }else{
+         this.yData = [120,35,12,65,32,78,145];
+      }
+      //动态刷新列表
+      this.$refs.BarChart.refreshChart();
+    }
+  },
 };
 </script>
 
@@ -41,27 +55,14 @@ export default {
   height: 100%;
   width: 100%;
   background: url("../../assets/images/bg.png") left top;
-  .header { 
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 50px;
-    left: 0;
-    background: #175;
-    z-index: 999;
-    .kanban {
-      line-height: 50px;
-      margin-left: 20px;
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-    }
-    .date {
-      position: absolute;
-      right: 20px;
-      top: 15px;
-      color: #fff;
-    }
+  .title-name{
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 40px;
+    font-weight: 700;
   }
   .main-content {
     height: 100%;
@@ -84,6 +85,9 @@ export default {
         margin: 0 5px;
         border: 1px solid #fff;
         width: 70px;
+      }
+      .sel{
+        background: #999;
       }
     }
   }

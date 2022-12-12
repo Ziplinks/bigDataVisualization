@@ -26,7 +26,7 @@ export default {
   computed: {},
   data() {
     return {
-      scale: 1,
+      scale: .89,
     };
   },
   mounted() {

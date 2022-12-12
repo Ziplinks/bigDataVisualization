@@ -5,7 +5,12 @@
 // import { chartSize } from "@/utils/common";
 export default {
   name: "index",
-  props: {},
+  props: {
+    yData:{
+      type:Array,
+      default:[]
+    }
+  },
   computed: {},
   data() {
     return {
@@ -17,9 +22,7 @@ export default {
     this.chartInstance = this.$echarts.init(this.$refs.chartBox);
     this.setChartOption();
     window.addEventListener("resize", () => {
-      setTimeout(() => {
-        this.refreshChart();
-      }, 300);
+      this.refreshChart();
     });
   },
   methods: {
@@ -40,6 +43,7 @@ export default {
         legend: {
           show: true,
           top: "10%",
+          left:"10%",
           textStyle: {
             color: "#fff",
             fontSize: 16,
@@ -51,7 +55,7 @@ export default {
           top: "20%",
         },
         xAxis: {
-          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子","帽子"],
           axisLabel: {
             textStyle: {
               show: true,
@@ -117,7 +121,7 @@ export default {
           {
             name: "国外销量",
             type: "bar",
-            data: [5, 20, 36, 10, 10, 20],
+            data: this.yData,
             barWidth: 40,
             itemStyle: {
               color: "#67c",
@@ -126,7 +130,7 @@ export default {
           {
             name: "国内销量",
             type: "bar",
-            data: [15, 60, 76, 50, 10, 80],
+            data: this.yData,
             barWidth: 40,
             itemStyle: {
               color: "#339",
@@ -137,9 +141,11 @@ export default {
     },
     //刷新图表
     refreshChart() {
-      if (!this.chartInstance) return;
-      this.chartInstance.resize();
-      this.setChartOption();
+       setTimeout(() => {
+        if (!this.chartInstance) return;
+        this.chartInstance.resize();
+        this.setChartOption();
+      }, 400);
     },
   },
 };
