@@ -1,0 +1,71 @@
+/* 初始化标签在所有浏览器中的margin、padding值 */
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+th,
+td,
+input,
+select,
+textarea,
+button,
+img {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  min-width: 1024px;
+  font-size: 14px;
+}
+
+.flex{
+	display: flex;
+}
+.flex-1{
+  flex: 1;
+}
+.pos-r{
+	position: relative;
+}
+.pos-a{
+	position: absolute;
+}
+.al-c{
+	text-align: center;
+}
+.flex-c{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
