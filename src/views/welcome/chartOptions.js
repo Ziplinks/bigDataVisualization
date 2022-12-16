@@ -12,15 +12,15 @@ export const options1 = {
     tooltip: {},
     legend: {
       show: true,
-      top: "10%",
-      left:"10%",
+      top: "12%",
+      left:"18%",
       textStyle: {
         color: "#fff",
         fontSize: 16,
       },
     },
     grid: {
-      left: "5%",
+      left: "10%",
       right: "5%",
       top: "20%",
     },
@@ -91,8 +91,8 @@ export const options1 = {
       {
         name: "国外销量",
         type: "bar",
-        data: [],
-        barWidth: 40,
+        data: [12,89,32,65,85,12,45],
+        barWidth: 20,
         itemStyle: {
           color: "#67c",
         },
@@ -100,8 +100,8 @@ export const options1 = {
       {
         name: "国内销量",
         type: "bar",
-        data: [],
-        barWidth: 40,
+        data: [19,32,33,65,85,92,40],
+        barWidth: 20,
         itemStyle: {
           color: "#339",
         },
@@ -123,14 +123,15 @@ export const options2 = {
       tooltip: {},
       legend: {
         show: true,
-        top: "10%",
+        top: "12%",
+        left:"18%",
         textStyle: {
           color: "#fff",
           fontSize: 16,
         },
       },
       grid: {
-        left: "5%",
+        left: "10%",
         right: "5%",
         top: "20%",
       },
@@ -237,15 +238,15 @@ export const options3 = {
     tooltip: {},
     legend: {
       show: true,
-      top: "10%",
-      left:"10%",
+      top: "12%",
+      left:"18%",
       textStyle: {
         color: "#fff",
         fontSize: 16,
       },
     },
     grid: {
-      left: "5%",
+      left: "10%",
       right: "5%",
       top: "20%",
     },
@@ -317,7 +318,7 @@ export const options3 = {
         name: "国外销量",
         type: "bar",
         data: [12,15,16,12,48,56,35],
-        barWidth: 40,
+        barWidth: 20,
         itemStyle: {
           color: "#67c",
         },
@@ -326,7 +327,7 @@ export const options3 = {
         name: "国内销量",
         type: "bar",
         data: [77,65,32,25,24,69,85],
-        barWidth: 40,
+        barWidth: 20,
         itemStyle: {
           color: "#339",
         },

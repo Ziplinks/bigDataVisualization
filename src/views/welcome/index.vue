@@ -18,10 +18,16 @@
           2022
         </div>
       </div>
-      <Chart height="515px" width="1920px" :options="options1" />
       <div class="flex">
-        <Chart height="515px" width="960px" :options="options2" />
-        <Chart height="515px" width="960px" :options="options3" />
+        <div class="side-box">
+          <Chart height="500px" :options="options1" />
+          <Chart height="500px" :options="options1" />
+        </div>
+        <MapChart class="flex-1" height="1030px" />
+        <div class="side-box">
+          <Chart height="500px" :options="options2" />
+          <Chart height="500px" :options="options3" />
+        </div>
       </div>
     </div>
   </div>
@@ -29,10 +35,11 @@
 
 <script>
 import Chart from "@/components/Chart";
-import { options3,options2, options1 } from "./chartOptions";
+import MapChart from "@/components/MapChart";
+import { options3, options2, options1 } from "./chartOptions";
 export default {
   name: "index",
-  components: {Chart },
+  components: { Chart, MapChart },
   data() {
     return {
       activeIndex: 0,
@@ -48,7 +55,7 @@ export default {
           data: [77, 65, 32, 25, 24, 69, 85],
         },
       ],
-      xAxisData:["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子","帽子"],
+      xAxisData: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子", "帽子"],
       dataList2: [
         {
           data: [12, 45, 67, 90, 45, 63, 19],
@@ -61,24 +68,40 @@ export default {
   },
   computed: {},
   mounted() {
-    this.options1.series.forEach((v, i) => {
-        v.data = this.dataList1[i].data;
+    this.options2.series.forEach((v, i) => {
+      v.data = this.dataList1[i].data;
     });
-    this.options1.xAxis.data = this.xAxisData;
+    this.options2.xAxis.data = this.xAxisData;
   },
   methods: {
     changeChart(tag) {
       this.activeIndex = tag;
       if (tag === 0) {
-        this.options1.series.forEach((v, i) => {
+        this.options2.series.forEach((v, i) => {
           v.data = this.dataList1[i].data;
         });
-        this.options1.xAxis.data = ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子","帽子"];
+        this.options2.xAxis.data = [
+          "衬衫",
+          "羊毛衫",
+          "雪纺衫",
+          "裤子",
+          "高跟鞋",
+          "袜子",
+          "帽子",
+        ];
       } else {
-        this.options1.series.forEach((v, i) => {
+        this.options2.series.forEach((v, i) => {
           v.data = this.dataList2[i].data;
         });
-        this.options1.xAxis.data = ["衬衫2", "羊毛衫2", "雪纺衫2", "裤子2", "高跟鞋2", "袜子2","帽子2"];
+        this.options2.xAxis.data = [
+          "衬衫2",
+          "羊毛衫2",
+          "雪纺衫2",
+          "裤子2",
+          "高跟鞋2",
+          "袜子2",
+          "帽子2",
+        ];
       }
     },
   },
@@ -110,6 +133,11 @@ export default {
       &.r {
         flex: 1;
       }
+    }
+    .side-box{
+      width: 500px;
+      position: relative;
+      margin-top: 30px;
     }
     .button-box {
       height: 30px;
