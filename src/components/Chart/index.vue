@@ -15,30 +15,7 @@ export default {
     },
     options: {
       type: Object,
-      default() {
-        return {
-          title: {
-            text: "ECharts 入门示例",
-          },
-          tooltip: {},
-          legend: {
-            data: ["销量"],
-          },
-          xAxis: {
-            type: "category",
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          },
-          yAxis: {
-            type: "value",
-          },
-          series: [
-            {
-              data: [820, 932, 901, 934, 1290, 1330, 1320],
-              type: "line",
-            },
-          ],
-        };
-      },
+      default: {},
     },
   },
   computed: {
@@ -53,7 +30,7 @@ export default {
     options: {
       handler(newVal, oldVal) {
         if (this.chart) {
-          this.chart.setOption(newVal);
+          this.chart.setOption(this.assignOptions(newVal));
         } else {
           this.init();
         }
@@ -64,6 +41,38 @@ export default {
   data() {
     return {
       chart: "",
+      defaultOptions: {
+        backgroundColor: "transparent",
+        title: {
+          text: "ECharts 入门示例",
+          textStyle: {
+            color: "#d9ecfa",
+            fontSize: 26,
+          },
+        },
+        tooltip: {},
+        legend: {
+          data: ["销量"],
+        },
+        grid: {
+          left: "10%",
+          right: "5%",
+          top: "20%",
+        },
+        xAxis: {
+          type: "category",
+          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: "line",
+          },
+        ],
+      },
     };
   },
   mounted() {
@@ -72,9 +81,13 @@ export default {
   methods: {
     init() {
       this.chart = this.$echarts.init(this.$refs.chartBox);
-      this.chart.setOption(this.options);
+      this.chart.setOption(this.assignOptions(this.options));
       window.addEventListener("resize", this.chart.resize);
     },
+    assignOptions(option){
+      let op = Object.assign({},this.defaultOptions, option);
+      return op
+    }
   },
 };
 </script>

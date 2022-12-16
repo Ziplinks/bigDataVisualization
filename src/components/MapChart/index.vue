@@ -162,7 +162,7 @@ export default {
               },
               shadowColor: "rgba(128, 217, 248, 1)",
               // shadowColor: 'rgba(255, 255, 255, 1)',
-              shadowOffsetX: -2,
+              shadowOffsetX: -2, //地图边阴影 
               shadowOffsetY: 2,
               shadowBlur: 10,
             },

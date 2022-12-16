@@ -21,7 +21,7 @@
       <div class="flex">
         <div class="side-box">
           <Chart height="500px" :options="options1" />
-          <Chart height="500px" :options="options1" />
+          <Chart height="500px" :options="options3" />
         </div>
         <MapChart class="flex-1" height="1030px" />
         <div class="side-box">
