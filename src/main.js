@@ -11,6 +11,8 @@ import '@/styles/base.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+import _ from 'lodash'
+Vue.prototype._ = _  //全部导入的挂载方式
 
 import '@/icons' // icon
 import * as echarts from 'echarts';

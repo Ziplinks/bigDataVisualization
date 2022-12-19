@@ -21,12 +21,12 @@
       <div class="flex">
         <div class="side-box">
           <Chart height="500px" :options="options1" />
-          <Chart height="500px" :options="options3" />
+          <Chart height="500px" :options="options2" />
         </div>
         <MapChart class="flex-1" height="1030px" />
         <div class="side-box">
-          <Chart height="500px" :options="options2" />
           <Chart height="500px" :options="options3" />
+          <Chart height="500px" :options="options4" />
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@ export default {
       options1,
       options2,
       options3,
-
+      options4:{},
       dataList1: [
         {
           data: [12, 15, 16, 12, 48, 56, 35],
@@ -68,19 +68,19 @@ export default {
   },
   computed: {},
   mounted() {
-    this.options2.series.forEach((v, i) => {
+    this.options3.series.forEach((v, i) => {
       v.data = this.dataList1[i].data;
     });
-    this.options2.xAxis.data = this.xAxisData;
+    this.options3.xAxis.data = this.xAxisData;
   },
   methods: {
     changeChart(tag) {
       this.activeIndex = tag;
       if (tag === 0) {
-        this.options2.series.forEach((v, i) => {
+        this.options3.series.forEach((v, i) => {
           v.data = this.dataList1[i].data;
         });
-        this.options2.xAxis.data = [
+        this.options3.xAxis.data = [
           "衬衫",
           "羊毛衫",
           "雪纺衫",
@@ -90,10 +90,10 @@ export default {
           "帽子",
         ];
       } else {
-        this.options2.series.forEach((v, i) => {
+        this.options3.series.forEach((v, i) => {
           v.data = this.dataList2[i].data;
         });
-        this.options2.xAxis.data = [
+        this.options3.xAxis.data = [
           "衬衫2",
           "羊毛衫2",
           "雪纺衫2",

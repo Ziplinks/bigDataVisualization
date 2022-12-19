@@ -46,13 +46,21 @@ export default {
         title: {
           text: "ECharts 入门示例",
           textStyle: {
-            color: "#d9ecfa",
-            fontSize: 26,
+            color: "#fff",
+            fontSize: 18,
           },
+          left: "3%",
+          top: "3%",
         },
         tooltip: {},
         legend: {
-          data: ["销量"],
+          show: true,
+          top: "12%",
+          left: "18%",
+          textStyle: {
+            color: "#7c829c",
+            fontSize: 16,
+          },
         },
         grid: {
           left: "10%",
@@ -61,14 +69,71 @@ export default {
         },
         xAxis: {
           type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat",],
+          axisLabel: {
+            textStyle: {
+              show: true,
+              color: "#9eb7cd",
+              fontSize: 16,
+            },
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#3e486c", //坐标轴线颜色
+            },
+          },
+          axisTick: {
+            lineStyle: {
+              color: "#9eb7cd", //刻度线颜色
+            },
+          },
+          splitLine: {
+            //纵向分割线设置
+            show: false,
+            lineStyle: {
+              color: ["red"],
+              width: 1,
+              type: "dashed",
+            },
+          },
         },
         yAxis: {
           type: "value",
+          nameTextStyle: {
+            color: "#7c829c",
+            fontSize: 16,
+            padding: [0, 0, 5, 0],
+          },
+          axisLabel: {
+            textStyle: {
+              show: true,
+              color: "#7c829c",
+              fontSize: 16,
+            },
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#2d3858", //坐标轴线颜色
+            },
+          },
+          axisTick: {
+            lineStyle: {
+              color: "#d2d2d2", //刻度线颜色
+            },
+          },
+          splitLine: {
+            //横向分割线设置
+            show: true,
+            lineStyle: {
+              color: ["#2d3858"],
+              width: 1,
+              type: "solid",
+            },
+          },
         },
         series: [
           {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: [820, 932, 901, 934, 1290, 1330],
             type: "line",
           },
         ],
@@ -84,10 +149,9 @@ export default {
       this.chart.setOption(this.assignOptions(this.options));
       window.addEventListener("resize", this.chart.resize);
     },
-    assignOptions(option){
-      let op = Object.assign({},this.defaultOptions, option);
-      return op
-    }
+    assignOptions(option) {
+      return _.merge(this.defaultOptions, option);
+    },
   },
 };
 </script>
