@@ -52,7 +52,10 @@ export default {
           left: "3%",
           top: "3%",
         },
-        tooltip: {},
+        tooltip: {
+          show: true,	
+          trigger: 'item'
+        },
         legend: {
           show: true,
           top: "12%",

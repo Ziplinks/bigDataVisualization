@@ -26,7 +26,7 @@
         <MapChart class="flex-1" height="1030px" />
         <div class="side-box">
           <Chart height="500px" :options="options3" />
-          <Chart height="500px" :options="options4" />
+          <PieChart height="500px" :options="options4" />
         </div>
       </div>
     </div>
@@ -34,19 +34,20 @@
 </template>
 
 <script>
-import Chart from "@/components/Chart";
+import Chart from "@/components/BarLineChart";
 import MapChart from "@/components/MapChart";
-import { options3, options2, options1 } from "./chartOptions";
+import PieChart from "@/components/PieChart";
+import { options4, options3, options2, options1 } from "./chartOptions";
 export default {
   name: "index",
-  components: { Chart, MapChart },
+  components: { Chart, MapChart, PieChart },
   data() {
     return {
       activeIndex: 0,
       options1,
       options2,
       options3,
-      options4:{},
+      options4,
       dataList1: [
         {
           data: [12, 15, 16, 12, 48, 56, 35],

@@ -106,3 +106,17 @@ export const options3 = {
       },
     ],
   }
+
+  export const options4 = {
+    series: [
+      {
+        data: [
+          // { value: 98, name: 'c1' },
+          // { value: 5, name: 'c2' },
+          // { value: 30, name: 'c3' },
+          // { value: 94, name: 'c4' },
+          // { value: 30, name: 'c5' }
+        ]
+      }
+    ]
+  };
