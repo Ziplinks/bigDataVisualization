@@ -20,7 +20,7 @@
       </div>
       <div class="flex">
         <div class="side-box">
-          <Chart height="500px" :options="options1" />
+          <Chart height="500px" :options="options5" @getChartIndex="getChartIndex" />
           <Chart height="500px" :options="options2" />
         </div>
         <MapChart class="flex-1" height="1030px" />
@@ -37,7 +37,7 @@
 import Chart from "@/components/BarLineChart";
 import MapChart from "@/components/MapChart";
 import PieChart from "@/components/PieChart";
-import { options4, options3, options2, options1 } from "./chartOptions";
+import {options5, options4, options3, options2, options1 } from "./chartOptions";
 export default {
   name: "index",
   components: { Chart, MapChart, PieChart },
@@ -48,6 +48,30 @@ export default {
       options2,
       options3,
       options4,
+      options5,
+      dataList: [{
+          name: '苹果',
+          value: '56'
+      }, {
+          name: '橘子',
+          value: '75'
+      }, {
+          name: '香蕉',
+          value: '85'
+      }, {
+          name: '火龙果',
+          value: '78'
+      }, {
+          name: '西瓜',
+          value: '76'
+      }, {
+          name: '椰子',
+          value: '45'
+      }, {
+          name: '葡萄',
+          value: '100'
+      }],
+
       dataList1: [
         {
           data: [12, 15, 16, 12, 48, 56, 35],
@@ -73,8 +97,13 @@ export default {
       v.data = this.dataList1[i].data;
     });
     this.options3.xAxis.data = this.xAxisData;
+
+    this.options5.series[0].data = this.dataList
   },
   methods: {
+    getChartIndex(index){
+      console.log(this.options5.series[0].data[index])
+    },
     changeChart(tag) {
       this.activeIndex = tag;
       if (tag === 0) {
@@ -135,7 +164,7 @@ export default {
         flex: 1;
       }
     }
-    .side-box{
+    .side-box {
       width: 500px;
       position: relative;
       margin-top: 30px;

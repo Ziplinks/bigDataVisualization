@@ -53,8 +53,13 @@ export default {
           top: "3%",
         },
         tooltip: {
-          show: true,	
-          trigger: 'item'
+           trigger: "axis",
+           axisPointer: {
+            type: "shadow",
+            crossStyle: {
+              color: "#999"
+            }
+          },
         },
         legend: {
           show: true,
@@ -145,6 +150,24 @@ export default {
   },
   mounted() {
     this.init();
+    //这里使用getZr(),直接使用click方法点击背景不会触发
+    this.chart.getZr().on('click', params => {
+        const pointInPixel = [params.offsetX, params.offsetY]
+        if (this.chart.containPixel('grid', pointInPixel)) {
+            const currentIndex = Math.abs(this.chart.convertFromPixel(
+                'grid',
+                pointInPixel
+            )[0])
+            //这个就是当前的index下标
+            // console.log(currentIndex)
+            //这里就是当前的值
+            // console.log(dataList[pointInGrid])
+            this.$emit("getChartIndex",currentIndex)
+
+        } else {
+            console.log('点击的是背景...')
+        }
+    })
   },
   methods: {
     init() {
