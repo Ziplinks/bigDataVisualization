@@ -30,6 +30,7 @@ export default {
     options: {
       handler(newVal, oldVal) {
         if (this.chart) {
+          console.log("change")
           this.chart.setOption(this.assignOptions(newVal));
         } else {
           this.init();

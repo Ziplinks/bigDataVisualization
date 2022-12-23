@@ -2,22 +2,10 @@
   <div class="big-data-bg">
     <div class="title-name">数据看板</div>
     <div class="main-content">
-      <div class="button-box flex">
-        <div
-          class="al-c cursor"
-          :class="{ sel: activeIndex === 0 }"
-          @click="changeChart(0)"
-        >
-          2021
-        </div>
-        <div
-          class="al-c cursor"
-          :class="{ sel: activeIndex === 1 }"
-          @click="changeChart(1)"
-        >
-          2022
-        </div>
+      <div class="button-box">
+         <TabIndex :tabList="tabList" @tabChange="tabChange"></TabIndex>
       </div>
+     
       <div class="flex">
         <div class="side-box">
           <Chart height="500px" :options="options5" @getChartIndex="getChartIndex" />
@@ -37,18 +25,28 @@
 import Chart from "@/components/BarLineChart";
 import MapChart from "@/components/MapChart";
 import PieChart from "@/components/PieChart";
+import TabIndex from "@/components/TabIndex"
 import {options5, options4, options3, options2, options1 } from "./chartOptions";
 export default {
   name: "index",
-  components: { Chart, MapChart, PieChart },
+  components: { Chart, MapChart, PieChart, TabIndex },
   data() {
     return {
-      activeIndex: 0,
       options1,
       options2,
       options3,
       options4,
       options5,
+      tabList:[{
+        label:"日",
+        value:1
+      },{
+        label:"周",
+        value:7
+      },{
+        label:"月",
+        value:30
+      },],
       dataList: [{
           name: '苹果',
           value: '56'
@@ -89,24 +87,26 @@ export default {
           data: [312, 145, 567, 190, 145, 563, 419],
         },
       ],
+       dataList3: [
+        {
+          data: [112, 415, 617, 910, 415, 613, 119],
+        },
+        {
+          data: [312, 745, 567, 190, 545, 563, 319],
+        },
+      ],
     };
   },
   computed: {},
   mounted() {
-    this.options3.series.forEach((v, i) => {
-      v.data = this.dataList1[i].data;
-    });
-    this.options3.xAxis.data = this.xAxisData;
-
     this.options5.series[0].data = this.dataList
   },
   methods: {
     getChartIndex(index){
       console.log(this.options5.series[0].data[index])
     },
-    changeChart(tag) {
-      this.activeIndex = tag;
-      if (tag === 0) {
+    tabChange(item) {
+      if (item.value == 1) {
         this.options3.series.forEach((v, i) => {
           v.data = this.dataList1[i].data;
         });
@@ -119,7 +119,7 @@ export default {
           "袜子",
           "帽子",
         ];
-      } else {
+      } else if(item.value == 7){
         this.options3.series.forEach((v, i) => {
           v.data = this.dataList2[i].data;
         });
@@ -131,6 +131,19 @@ export default {
           "高跟鞋2",
           "袜子2",
           "帽子2",
+        ];
+      }else if(item.value == 30){
+         this.options3.series.forEach((v, i) => {
+          v.data = this.dataList3[i].data;
+        });
+        this.options3.xAxis.data = [
+          "1",
+          "3",
+          "5",
+          "7",
+          "9",
+          "11",
+          "13",
         ];
       }
     },
@@ -170,22 +183,12 @@ export default {
       margin-top: 30px;
     }
     .button-box {
-      height: 30px;
-      line-height: 30px;
       position: absolute;
       right: 50px;
       top: 70px;
       z-index: 100;
       color: #fff;
       font-size: 16px;
-      > div {
-        margin: 0 5px;
-        border: 1px solid #fff;
-        width: 70px;
-      }
-      .sel {
-        background: #999;
-      }
     }
   }
 }
