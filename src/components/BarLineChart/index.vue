@@ -49,6 +49,7 @@ export default {
           textStyle: {
             color: "#fff",
             fontSize: 18,
+            fontWeight:500,
           },
           left: "3%",
           top: "3%",
@@ -85,6 +86,7 @@ export default {
               color: "#9eb7cd",
               fontSize: 16,
             },
+            rotate:0,
           },
           axisLine: {
             lineStyle: {

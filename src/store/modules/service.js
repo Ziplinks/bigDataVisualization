@@ -4,18 +4,18 @@ let  state = {
 }
 let devService= {
     service: '/backstage-api',
-    apiService: '/api',
-    yyyfService: '/app'
+    apiService: '/offline-warehouse',
+   
 }
 let stagingService= {
     service: '/backstage-api',
-    apiService: '/api',
-    yyyfService: '/app'
+    apiService: '/offline-warehouse',
+  
 }
 let prodService= {
    service: '/backstage-api',
-   apiService: '/api',
-   yyyfService: '/app'
+   apiService: '/offline-warehouse',
+ 
 }
 // 开发
 if(process.env.NODE_ENV === 'development'){

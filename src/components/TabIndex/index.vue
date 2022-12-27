@@ -46,7 +46,7 @@ export default {
   border: 1px solid #fff;
   border-radius: 3px;
   .item-box {
-    padding: 0 20px;
+    padding: 0 15px;
     font-size: 14px;
     cursor: pointer;
     &.sel,&:hover {

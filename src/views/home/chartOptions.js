@@ -44,9 +44,15 @@ export const options2 = {
   tooltip: {},
   xAxis: {
     data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+    axisLabel: {
+      rotate:30,
+    },
   },
   yAxis: {
     name: "（万元）",
+  },
+  grid: {
+    left: "15%",
   },
   series: [{
     name: "国内销量",
@@ -205,4 +211,21 @@ export const options5 = {
     },
 
   ]
+}
+
+export const top10Options = {
+  title: {
+    text: "",
+  },
+  xAxis: {
+    data: [],
+  },
+  yAxis: {
+    name: "",
+  },
+  series: [{
+    name: "",
+    type: "bar",
+    data: []
+  }],
 }

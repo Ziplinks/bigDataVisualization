@@ -72,3 +72,22 @@ body,
 	justify-content: center;
 	align-items: center;
 }
+.w120{
+  width: 120px;
+}
+.w70{
+  width: 70px;
+}
+.el-input__inner:hover {
+  border-color: #adb3c9;
+}
+.el-input__inner {
+  background-color: #0e1742;
+  border: 1px solid #adb3c9;
+  color: #adb3c9;
+  height: 30px;
+  line-height: 30px;
+}
+.el-input__icon{
+  line-height: 30px;
+}

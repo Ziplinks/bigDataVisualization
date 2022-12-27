@@ -54,13 +54,14 @@ module.exports = {
       errors: true
     },
     proxy: {
-      '/api': {
+      '/offline-warehouse': {
         // target: 'http://10.10.18.33:8001',//徐欢
         // target: 'http://10.10.18.34:8002',//周开杰
-        target: 'http://10.1.139.87:90',//测试库
+        target:'http://10.10.18.45:8080',
+        // target: 'http://10.1.139.87:90',//测试库
         changeOrigin: true,
         pathRewrite: {
-         '^api': '/'
+         '^offline-warehouse': '/'
         }
       },
     },

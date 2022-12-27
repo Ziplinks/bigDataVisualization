@@ -31,7 +31,7 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/',
-    component: () => import('@/views/welcome/index'),//欢迎页面（首页）
+    component: () => import('@/views/home/index'),//欢迎页面（首页）
     hidden: true
   }
 ]

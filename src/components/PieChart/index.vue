@@ -50,6 +50,7 @@ export default {
           textStyle: {
             color: "#fff",
             fontSize: 18,
+            fontWeight:500,
           },
         },
         tooltip: {
