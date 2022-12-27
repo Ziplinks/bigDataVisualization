@@ -2,10 +2,6 @@
   <div class="big-data-bg">
     <div class="title-name">数据看板</div>
     <div class="main-content">
-      <div class="button-box">
-        <TabIndex :tabList="tabList" @tabChange="tabChange"></TabIndex>
-      </div>
-
       <div class="flex">
         <div class="side-box">
           <div class="pos-r">
@@ -40,7 +36,7 @@
                 </el-option>
               </el-select>
             </div>
-            <Chart height="500px" :options="options2" />
+            <Chart height="500px" :options="usageOptions" />
           </div>
           <div class="pos-r">
             <TabIndex
@@ -57,11 +53,16 @@
         </div>
         <MapChart class="flex-1" height="1030px" />
         <div class="side-box">
-          <Chart height="500px" :options="options3" />
+          <Chart height="500px" :options="orderPaymentOptions" />
           <PieChart height="500px" :options="options4" />
         </div>
       </div>
     </div>
+    <ModuleDialog title="" :show="dialogShow" size="750px" @cancel="cancel">
+      <div slot="content">
+        <Chart height="500px" :options="top10DetailOptions" />
+      </div>
+    </ModuleDialog>
   </div>
 </template>
 
@@ -71,26 +72,31 @@ import MapChart from "@/components/MapChart";
 import PieChart from "@/components/PieChart";
 import TabIndex from "@/components/TabIndex";
 import RankChart from "@/components/RankChart";
-import { getAdsTrafficStatsByChannel, getAdsDownloadTop101d } from "@/api/api";
+import ModuleDialog from "@/components/ModuleDialog";
 import {
-  options5,
+  adsTrafficStatsByChannel,
+  adsDownloadTop101d,
+  adsDownloadTop10Detail,
+  adsNewBuyerStats,
+} from "@/api/api";
+import {
   options4,
-  options3,
-  options2,
-  options1,
+  usageOptions,
+  orderPaymentOptions,
   top10Options,
+  top10DetailOptions,
 } from "./chartOptions";
 export default {
   name: "index",
-  components: { Chart, MapChart, PieChart, TabIndex, RankChart },
+  components: { Chart, MapChart, PieChart, TabIndex, RankChart, ModuleDialog },
   data() {
     return {
-      options1,
-      options2,
-      options3,
       options4,
-      options5,
+      orderPaymentOptions,
+      usageOptions,
       top10Options,
+      top10DetailOptions,
+      dialogShow: false,
       tabList: [
         {
           label: "日",
@@ -116,62 +122,6 @@ export default {
         },
       ],
       top10Type: "db",
-      dataList: [
-        {
-          name: "苹果",
-          value: "56",
-        },
-        {
-          name: "橘子",
-          value: "75",
-        },
-        {
-          name: "香蕉",
-          value: "85",
-        },
-        {
-          name: "火龙果",
-          value: "78",
-        },
-        {
-          name: "西瓜",
-          value: "76",
-        },
-        {
-          name: "椰子",
-          value: "45",
-        },
-        {
-          name: "葡萄",
-          value: "100",
-        },
-      ],
-
-      dataList1: [
-        {
-          data: [12, 15, 16, 12, 48, 56, 35],
-        },
-        {
-          data: [77, 65, 32, 25, 24, 69, 85],
-        },
-      ],
-      xAxisData: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子", "帽子"],
-      dataList2: [
-        {
-          data: [12, 45, 67, 90, 45, 63, 19],
-        },
-        {
-          data: [312, 145, 567, 190, 145, 563, 419],
-        },
-      ],
-      dataList3: [
-        {
-          data: [112, 415, 617, 910, 415, 613, 119],
-        },
-        {
-          data: [312, 745, 567, 190, 545, 563, 319],
-        },
-      ],
       elOptions1: [
         {
           value: "uvCount",
@@ -206,27 +156,28 @@ export default {
   },
   computed: {},
   mounted() {
-    this.options5.series[0].data = this.dataList;
     this.init();
   },
   methods: {
     init() {
       this.getUvCount();
       this.getAdsDownloadTop101d();
+      this.getAdsNewBuyerStats();
     },
+    //app学习模块使用情况
     getUvCount() {
       let params = {
         type: this.value1,
         day: this.value2,
       };
-      getAdsTrafficStatsByChannel(params).then((res) => {
+      adsTrafficStatsByChannel(params).then((res) => {
         if (res.data.code === 200) {
           let data = res.data.data;
-          this.options2.title.text = data.title;
-          this.options2.xAxis.data = data.xData;
-          this.options2.yAxis.name = data.yUnit;
-          this.options2.series[0].data = data.yData;
-          this.options2.series[0].name =
+          this.usageOptions.title.text = data.title;
+          this.usageOptions.xAxis.data = data.xData;
+          this.usageOptions.yAxis.name = data.yUnit;
+          this.usageOptions.series[0].data = data.yData;
+          this.usageOptions.series[0].name =
             this.value1 === "uvCount"
               ? "访客人数"
               : this.value1 === "avgDurationSec"
@@ -235,21 +186,38 @@ export default {
         }
       });
     },
-    getRankChartIndex(index){
-     let name = this.top10Options.xAxis.data[index]
-     console.log(name)
+    //学校排行榜点击
+    getRankChartIndex(index) {
+      let name = this.top10Options.xAxis.data[index];
+      this.getAdsDownloadTop10Detail(name);
     },
-    getChartIndex(index) {
-      // console.log(this.options5.series[0].data[index], index);
+    //关闭弹窗
+    cancel() {
+      this.dialogShow = false;
     },
+    //学校数据表、数据库下载排行详情
+    getAdsDownloadTop10Detail(schoolName) {
+      let params = {
+        type: this.top10Type,
+        school: schoolName,
+      };
+      adsDownloadTop10Detail(params).then((res) => {
+        if (res.data.code === 200) {
+          this.dialogShow = true;
+          let data = res.data.data;
+          this.top10DetailOptions.title.text = data.title;
+          this.top10DetailOptions.xAxis.data = data.xData;
+          this.top10DetailOptions.yAxis.name = data.yUnit;
+          this.top10DetailOptions.series[0].data = data.yData;
+        }
+      });
+    },
+    //数据表、数据库下载排行
     getAdsDownloadTop101d() {
-      getAdsDownloadTop101d(this.top10Type).then((res) => {
+      adsDownloadTop101d(this.top10Type).then((res) => {
         if (res.data.code === 200) {
           let data = res.data.data;
-          this.top10Options.title.text =
-            this.top10Type === "db"
-              ? "最近一日数据库下载量 "
-              : "最近一日数据表下载量 ";
+          this.top10Options.title.text = data.title;
           this.top10Options.xAxis.data = data.xData;
           this.top10Options.yAxis.name = data.yUnit;
           let arr = [];
@@ -268,39 +236,22 @@ export default {
       this.top10Type = item.value;
       this.getAdsDownloadTop101d();
     },
-    tabChange(item) {
-      if (item.value == 1) {
-        this.options3.series.forEach((v, i) => {
-          v.data = this.dataList1[i].data;
-        });
-        this.options3.xAxis.data = [
-          "衬衫",
-          "羊毛衫",
-          "雪纺衫",
-          "裤子",
-          "高跟鞋",
-          "袜子",
-          "帽子",
-        ];
-      } else if (item.value == 7) {
-        this.options3.series.forEach((v, i) => {
-          v.data = this.dataList2[i].data;
-        });
-        this.options3.xAxis.data = [
-          "衬衫2",
-          "羊毛衫2",
-          "雪纺衫2",
-          "裤子2",
-          "高跟鞋2",
-          "袜子2",
-          "帽子2",
-        ];
-      } else if (item.value == 30) {
-        this.options3.series.forEach((v, i) => {
-          v.data = this.dataList3[i].data;
-        });
-        this.options3.xAxis.data = ["1", "3", "5", "7", "9", "11", "13"];
-      }
+    //最近7日下单人数/支付人数
+    getAdsNewBuyerStats() {
+      adsNewBuyerStats().then((res) => {
+        if (res.data.code === 200) {
+          let data = res.data.data;
+          this.orderPaymentOptions.title.text = "最近7日下单/支付人数";
+          this.orderPaymentOptions.xAxis.data = data.xData;
+          this.orderPaymentOptions.yAxis.forEach((v) => {
+            v.name = data.yUnit;
+          });
+          this.orderPaymentOptions.series = _.merge(
+            this.orderPaymentOptions.series,
+            data.series
+          );
+        }
+      });
     },
   },
 };

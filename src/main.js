@@ -7,7 +7,7 @@ import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 // 引入适配方案
 // import './utils/flexible'
 import '@/styles/base.scss' // global css
-
+import '@/utils/dialogdrag.js'
 import App from './App'
 import store from './store'
 import router from './router'

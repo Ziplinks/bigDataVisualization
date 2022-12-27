@@ -210,7 +210,7 @@ export default {
                     // y轴数据的索引
                     let yIndex = pointInGrid[1]
                     // var a = dataAxis[yIndex];
-                     this.$emit("getChartIndex",yIndex)
+                    this.$emit("getChartIndex",yIndex > 0 ? yIndex : 0 )
                 }
     });
   },

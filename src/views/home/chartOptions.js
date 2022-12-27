@@ -1,43 +1,115 @@
 import * as echarts from 'echarts';
-export const options1 = {
+export const orderPaymentOptions = {
   title: {
     text: "2022年总销量柱图11111",
   },
   tooltip: {},
   grid: {
     left: "15%",
+    right: "15%"
   },
   xAxis: {
     data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子", "帽子"],
   },
-  yAxis: {
-    name: "（万元）",
-    nameTextStyle: {
-      padding: [0, 0, 5, -40],
-    },
-  },
-  series: [{
-      name: "国外销量",
-      type: "bar",
-      data: [1200, 789, 732, 695, 805, 120, 495],
-      barWidth: 20,
-      itemStyle: {
-        color: "#67c",
+  yAxis: [
+    {
+      type: 'value',
+      name: "（万元）",
+      nameTextStyle: {
+        color: "#7c829c",
+        fontSize: 16,
+        padding: [0, 30, 5, 0],
+      },
+      axisLabel: {
+        textStyle: {
+          show: true,
+          color: "#7c829c",
+          fontSize: 16,
+        },
+      },
+      axisLine: {
+        lineStyle: {
+          color: "#2d3858", //坐标轴线颜色
+        },
+      },
+      axisTick: {
+        lineStyle: {
+          color: "#d2d2d2", //刻度线颜色
+        },
+      },
+      splitLine: {
+        //横向分割线设置
+        show: false,
+        lineStyle: {
+          color: ["#2d3858"],
+          width: 1,
+          type: "solid",
+        },
       },
     },
     {
+      type: 'value',
+      name: "（万元）",
+      nameTextStyle: {
+        color: "#7c829c",
+        fontSize: 16,
+        padding: [0, 0, 5, 35],
+      },
+      axisLabel: {
+        textStyle: {
+          show: true,
+          color: "#7c829c",
+          fontSize: 16,
+        },
+      },
+      axisLine: {
+        lineStyle: {
+          color: "#2d3858", //坐标轴线颜色
+        },
+      },
+      axisTick: {
+        lineStyle: {
+          color: "#d2d2d2", //刻度线颜色
+        },
+      },
+      splitLine: {
+        //横向分割线设置
+        show: false,
+        lineStyle: {
+          color: ["#2d3858"],
+          width: 1,
+          type: "solid",
+        },
+      },
+    }
+  ],
+  series: [{
+      name: "国外销量",
+      type: "line",
+      yAxisIndex: 0,
+      data: [1200, 789, 732, 695, 805, 120, 495],
+      barWidth: 20,
+      smooth: true,
+      itemStyle: {
+        color: "#f5b54b",
+      },
+    },
+    { 
       name: "国内销量",
       type: "bar",
+      yAxisIndex: 1,
       data: [194, 324, 334, 635, 835, 932, 404],
       barWidth: 20,
       itemStyle: {
-        color: "#339",
+        color: "#67c",
+        barBorderRadius : [ 3, 3, 0, 0],
       },
+     
     },
   ],
 }
 
-export const options2 = {
+export const usageOptions = {
   title: {
     text: "小白兔",
   },
@@ -50,6 +122,9 @@ export const options2 = {
   },
   yAxis: {
     name: "（万元）",
+    nameTextStyle: {
+      padding: [0, 30, 5, 0],
+    },
   },
   grid: {
     left: "15%",
@@ -107,38 +182,6 @@ export const options2 = {
   }, ],
 }
 
-export const options3 = {
-  title: {
-    text: "小黄鱼",
-  },
-  tooltip: {},
-  xAxis: {
-    data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子", "帽子"],
-  },
-  yAxis: {
-    name: "（万元）",
-  },
-  series: [{
-      name: "国外销量",
-      type: "bar",
-      data: [12, 15, 16, 12, 48, 56, 35],
-      barWidth: 20,
-      itemStyle: {
-        color: "#67c",
-      },
-    },
-    {
-      name: "国内销量",
-      type: "bar",
-      data: [77, 65, 32, 25, 24, 69, 85],
-      barWidth: 20,
-      itemStyle: {
-        color: "#339",
-      },
-    },
-  ],
-}
-
 export const options4 = {
   series: [{
     data: [
@@ -150,68 +193,6 @@ export const options4 = {
     ]
   }]
 };
-
-export const options5 = {
-  title: {
-    text: '柱图测试',
-  },
-  tooltip: {
-    trigger: "axis",
-    axisPointer: {
-      type: "shadow",
-      crossStyle: {
-        color: "#999"
-      }
-    },
-  },
-  grid: {
-    left: "15%",
-  },
-  xAxis: {
-    type: "category",
-    data: ['丙烯', '乙烯', '甲苯', '烯烃', '苯系物', '烷烃'],
-  },
-  yAxis: {
-    type: "value",
-    axisLabel: {
-      formatter: "{value}%",
-    },
-  },
-
-  series: [{
-      name: "",
-      type: "bar",
-      data: [],
-      barGap: '-100%',
-      barCategoryGap: '60%',
-      itemStyle: {
-        normal: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: 'rgba(27,168,240,1)'
-            },
-            {
-              offset: 1,
-              color: 'rgba(32,40,95,0.3)'
-            }
-          ])
-        },
-        emphasis: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: 'rgba(27,168,240,1)'
-            },
-            {
-              offset: 1,
-              color: 'rgba(27,168,240,0.3)'
-            }
-          ])
-        }
-      },
-    },
-
-  ]
-}
 
 export const top10Options = {
   title: {
@@ -229,3 +210,48 @@ export const top10Options = {
     data: []
   }],
 }
+
+export const top10DetailOptions = {
+  title: {
+    text: "",
+  },
+  xAxis: {
+    data: [],
+    axisLabel: {
+      textStyle: {
+        show: true,
+        color: "#9eb7cd",
+        fontSize: 14,
+      },
+      rotate:20,
+    },
+  },
+  yAxis: {
+    name: "",
+    nameTextStyle: {
+      padding: [0, 30, 5, 0],
+    },
+  },
+  series: [{
+    name: "",
+    type: "bar",
+    barWidth: 20,
+    data: [],
+    itemStyle: {
+      normal: {
+          show: true,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+            offset: 0,
+            color: 'rgba(27,168,240,1)'
+          },
+          {
+            offset: 1,
+            color: 'rgba(32,40,95,0.5)'
+          }
+        ]),
+        barBorderRadius : [ 10, 10, 0, 0],
+      },
+  }
+  }],
+}
+

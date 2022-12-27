@@ -69,8 +69,10 @@ export default {
           left: "18%",
           textStyle: {
             color: "#7c829c",
-            fontSize: 16,
+            fontSize: 14,
           },
+          itemHeight:9,
+          itemWidth:16,
         },
         grid: {
           left: "10%",
